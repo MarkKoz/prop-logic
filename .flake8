@@ -1,12 +1,8 @@
 [flake8]
-application_import_names = prop_logic
-ban-relative-imports = true
 docstring-convention = all
-import-order-style = pycharm
-inline-quotes = "
 max-line-length = 100
 ignore =
-    W503,
+    E203, W503,
     # Missing Docstrings
     D100,D104,D105,D107,
     # Docstring Whitespace

@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.3.0
+    rev: v4.1.0
     hooks:
       - id: check-merge-conflict
       - id: check-toml
@@ -11,15 +11,24 @@ repos:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.6.0
+    rev: v1.9.0
     hooks:
       - id: python-check-blanket-noqa
-  - repo: local
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+  - repo: https://github.com/psf/black
+    rev: 21.12b0
+    hooks:
+      - id: black
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
     hooks:
       - id: flake8
-        name: Flake8
-        description: Run flake8 within the project's environment through poetry.
-        entry: poetry run flake8
-        language: system
-        types: [python]
-        require_serial: true
+        additional_dependencies:
+          - flake8-annotations~=2.7.0
+          - flake8-docstrings~=1.6
+          - flake8-string-format~=0.3.0
+          - pep8-naming~=0.12
+          - pydocstyle~=6.1.1
