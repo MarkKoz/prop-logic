@@ -6,8 +6,13 @@ from typing import Any, Optional, Protocol, Type, TypeVar, cast, runtime_checkab
 from prop_logic.lexer import Token, TokenType
 
 __all__ = (
-    "Connective", "UnaryConnective", "BinaryConnective",
-    "Negation", "Conjunction", "Disjunction", "Implication"
+    "Connective",
+    "UnaryConnective",
+    "BinaryConnective",
+    "Negation",
+    "Conjunction",
+    "Disjunction",
+    "Implication",
 )
 
 
@@ -29,15 +34,15 @@ class Connective(ConnectiveProtocol, type):
 
     __type_connectives: dict[TokenType, Connective] = {}
 
-    def __new__(mcs, name: str, bases: tuple[type, ...], namespace: dict[str, Any]) -> Connective:
+    def __new__(mcls, name: str, bases: tuple[type, ...], namespace: dict[str, Any]) -> Connective:
         """Create a new Connective type and ensure it's uniquely associated with a TokenType."""
-        cls = super().__new__(mcs, name, bases, namespace)
+        cls = super().__new__(mcls, name, bases, namespace)
 
-        if isinstance(cls, mcs):
-            if cls.type in mcs.__type_connectives:
-                raise ValueError(f"A {mcs.__name__} with type {cls.type!r} is already defined.")
+        if isinstance(cls, mcls):
+            if cls.type in mcls.__type_connectives:
+                raise ValueError(f"A {mcls.__name__} with type {cls.type!r} is already defined.")
             else:
-                mcs.__type_connectives[cls.type] = cls
+                mcls.__type_connectives[cls.type] = cls
         else:
             raise ValueError(f"{cls.__name__} must subtype {ConnectiveProtocol.__name__}.")
 
@@ -64,17 +69,19 @@ class Connective(ConnectiveProtocol, type):
         return cls.__name__
 
     @classmethod
-    def from_token(mcs: Type[ConnectiveType], token: Optional[Token]) -> Optional[ConnectiveType]:
+    def from_token(
+        mcls: Type[ConnectiveType], token: Optional[Token]  # noqa: N804
+    ) -> Optional[ConnectiveType]:
         """Create a Connective from a `token`. Return None if `token` is invalid."""
         if token is None:
             return None
 
         try:
             # There doesn't seem to be a good way to annotate the dict value as the subclass's type.
-            return cast(ConnectiveType, mcs.__type_connectives[token.type])
+            return cast(ConnectiveType, mcls.__type_connectives[token.type])
         except KeyError:
             return None
-            # valid_types = ", ".join(type_.name for type_ in mcs.__type_connectives)
+            # valid_types = ", ".join(type_.name for type_ in mcls.__type_connectives)
             # raise ValueError(f"Invalid type for {token!r}. Valid types: {valid_types}") from None
 
 

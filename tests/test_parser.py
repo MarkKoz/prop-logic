@@ -5,79 +5,54 @@ from prop_logic.connectives import Conjunction, Implication, Negation
 from prop_logic.nodes import BinaryFormula, UnaryFormula, Variable
 from prop_logic.parser import Parser
 
-
 PARAMS_GROUPED = [
     (
         "A & B > C",
         BinaryFormula(
-            BinaryFormula(
-                Variable("A"),
-                Conjunction,
-                Variable("B")
-            ),
+            BinaryFormula(Variable("A"), Conjunction, Variable("B")),
             Implication,
-            Variable("C")
-        )
+            Variable("C"),
+        ),
     ),
     (
         "(A & B) > C",
         BinaryFormula(
-            BinaryFormula(
-                Variable("A"),
-                Conjunction,
-                Variable("B")
-            ),
+            BinaryFormula(Variable("A"), Conjunction, Variable("B")),
             Implication,
-            Variable("C")
-        )
+            Variable("C"),
+        ),
     ),
     (
         "A & (B > C)",
         BinaryFormula(
             Variable("A"),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, Variable("C")),
+        ),
     ),
     (
         "(A & B > C)",
         BinaryFormula(
-            BinaryFormula(
-                Variable("A"),
-                Conjunction,
-                Variable("B")
-            ),
+            BinaryFormula(Variable("A"), Conjunction, Variable("B")),
             Implication,
-            Variable("C")
-        )
+            Variable("C"),
+        ),
     ),
     (
         "(A & (B > C))",
         BinaryFormula(
             Variable("A"),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, Variable("C")),
+        ),
     ),
     (
         "((A & B) > C)",
         BinaryFormula(
-            BinaryFormula(
-                Variable("A"),
-                Conjunction,
-                Variable("B")
-            ),
+            BinaryFormula(Variable("A"), Conjunction, Variable("B")),
             Implication,
-            Variable("C")
-        )
+            Variable("C"),
+        ),
     ),
 ]
 
@@ -87,48 +62,32 @@ PARAMS_UNGROUPED_NOT = [
         BinaryFormula(
             UnaryFormula(Negation, Variable("A")),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, Variable("C")),
+        ),
     ),
     (
         "A & ~B > C",
         BinaryFormula(
             Variable("A"),
             Conjunction,
-            BinaryFormula(
-                UnaryFormula(Negation, Variable("B")),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(UnaryFormula(Negation, Variable("B")), Implication, Variable("C")),
+        ),
     ),
     (
         "A & B > ~C",
         BinaryFormula(
             Variable("A"),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, UnaryFormula(Negation, Variable("C"))),
+        ),
     ),
     (
         "~A & ~B > C",
         BinaryFormula(
             UnaryFormula(Negation, Variable("A")),
             Conjunction,
-            BinaryFormula(
-                UnaryFormula(Negation, Variable("B")),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(UnaryFormula(Negation, Variable("B")), Implication, Variable("C")),
+        ),
     ),
     (
         "A & ~B > ~C",
@@ -138,21 +97,17 @@ PARAMS_UNGROUPED_NOT = [
             BinaryFormula(
                 UnaryFormula(Negation, Variable("B")),
                 Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+                UnaryFormula(Negation, Variable("C")),
+            ),
+        ),
     ),
     (
         "~A & B > ~C",
         BinaryFormula(
             UnaryFormula(Negation, Variable("A")),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, UnaryFormula(Negation, Variable("C"))),
+        ),
     ),
     (
         "~A & ~B > ~C",
@@ -162,9 +117,9 @@ PARAMS_UNGROUPED_NOT = [
             BinaryFormula(
                 UnaryFormula(Negation, Variable("B")),
                 Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+                UnaryFormula(Negation, Variable("C")),
+            ),
+        ),
     ),
 ]
 
@@ -172,38 +127,26 @@ PARAMS_GROUPED_NOT = [
     (
         "(~A & B) > C",
         BinaryFormula(
-            BinaryFormula(
-                UnaryFormula(Negation, Variable("A")),
-                Conjunction,
-                Variable("B")
-            ),
+            BinaryFormula(UnaryFormula(Negation, Variable("A")), Conjunction, Variable("B")),
             Implication,
-            Variable("C")
-        )
+            Variable("C"),
+        ),
     ),
     (
         "(A & ~B) > C",
         BinaryFormula(
-            BinaryFormula(
-                Variable("A"),
-                Conjunction,
-                UnaryFormula(Negation, Variable("B"))
-            ),
+            BinaryFormula(Variable("A"), Conjunction, UnaryFormula(Negation, Variable("B"))),
             Implication,
-            Variable("C")
-        )
+            Variable("C"),
+        ),
     ),
     (
         "(A & B) > ~C",
         BinaryFormula(
-            BinaryFormula(
-                Variable("A"),
-                Conjunction,
-                Variable("B")
-            ),
+            BinaryFormula(Variable("A"), Conjunction, Variable("B")),
             Implication,
-            UnaryFormula(Negation, Variable("C"))
-        )
+            UnaryFormula(Negation, Variable("C")),
+        ),
     ),
     (
         "(~A & ~B) > C",
@@ -211,35 +154,27 @@ PARAMS_GROUPED_NOT = [
             BinaryFormula(
                 UnaryFormula(Negation, Variable("A")),
                 Conjunction,
-                UnaryFormula(Negation, Variable("B"))
+                UnaryFormula(Negation, Variable("B")),
             ),
             Implication,
-            Variable("C")
-        )
+            Variable("C"),
+        ),
     ),
     (
         "(~A & B) > ~C",
         BinaryFormula(
-            BinaryFormula(
-                UnaryFormula(Negation, Variable("A")),
-                Conjunction,
-                Variable("B")
-            ),
+            BinaryFormula(UnaryFormula(Negation, Variable("A")), Conjunction, Variable("B")),
             Implication,
-            UnaryFormula(Negation, Variable("C"))
-        )
+            UnaryFormula(Negation, Variable("C")),
+        ),
     ),
     (
         "(A & ~B) > ~C",
         BinaryFormula(
-            BinaryFormula(
-                Variable("A"),
-                Conjunction,
-                UnaryFormula(Negation, Variable("B"))
-            ),
+            BinaryFormula(Variable("A"), Conjunction, UnaryFormula(Negation, Variable("B"))),
             Implication,
-            UnaryFormula(Negation, Variable("C"))
-        )
+            UnaryFormula(Negation, Variable("C")),
+        ),
     ),
     (
         "(~A & ~B) > ~C",
@@ -247,73 +182,52 @@ PARAMS_GROUPED_NOT = [
             BinaryFormula(
                 UnaryFormula(Negation, Variable("A")),
                 Conjunction,
-                UnaryFormula(Negation, Variable("B"))
+                UnaryFormula(Negation, Variable("B")),
             ),
             Implication,
-            UnaryFormula(Negation, Variable("C"))
-        )
+            UnaryFormula(Negation, Variable("C")),
+        ),
     ),
-
     # Next
     (
         "~A & (B > C)",
         BinaryFormula(
             UnaryFormula(Negation, Variable("A")),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, Variable("C")),
+        ),
     ),
     (
         "A & (~B > C)",
         BinaryFormula(
             Variable("A"),
             Conjunction,
-            BinaryFormula(
-                UnaryFormula(Negation, Variable("B")),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(UnaryFormula(Negation, Variable("B")), Implication, Variable("C")),
+        ),
     ),
     (
         "A & (B > ~C)",
         BinaryFormula(
             Variable("A"),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, UnaryFormula(Negation, Variable("C"))),
+        ),
     ),
     (
         "~A & (~B > C)",
         BinaryFormula(
             UnaryFormula(Negation, Variable("A")),
             Conjunction,
-            BinaryFormula(
-                UnaryFormula(Negation, Variable("B")),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(UnaryFormula(Negation, Variable("B")), Implication, Variable("C")),
+        ),
     ),
     (
         "~A & (B > ~C)",
         BinaryFormula(
             UnaryFormula(Negation, Variable("A")),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, UnaryFormula(Negation, Variable("C"))),
+        ),
     ),
     (
         "A & (~B > ~C)",
@@ -323,9 +237,9 @@ PARAMS_GROUPED_NOT = [
             BinaryFormula(
                 UnaryFormula(Negation, Variable("B")),
                 Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+                UnaryFormula(Negation, Variable("C")),
+            ),
+        ),
     ),
     (
         "~A & (~B > ~C)",
@@ -335,47 +249,34 @@ PARAMS_GROUPED_NOT = [
             BinaryFormula(
                 UnaryFormula(Negation, Variable("B")),
                 Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+                UnaryFormula(Negation, Variable("C")),
+            ),
+        ),
     ),
-
     # Next
     (
         "((~A & B) > C)",
         BinaryFormula(
-            BinaryFormula(
-                UnaryFormula(Negation, Variable("A")),
-                Conjunction,
-                Variable("B")
-            ),
+            BinaryFormula(UnaryFormula(Negation, Variable("A")), Conjunction, Variable("B")),
             Implication,
-            Variable("C")
-        )
+            Variable("C"),
+        ),
     ),
     (
         "((A & ~B) > C)",
         BinaryFormula(
-            BinaryFormula(
-                Variable("A"),
-                Conjunction,
-                UnaryFormula(Negation, Variable("B"))
-            ),
+            BinaryFormula(Variable("A"), Conjunction, UnaryFormula(Negation, Variable("B"))),
             Implication,
-            Variable("C")
-        )
+            Variable("C"),
+        ),
     ),
     (
         "((A & B) > ~C)",
         BinaryFormula(
-            BinaryFormula(
-                Variable("A"),
-                Conjunction,
-                Variable("B")
-            ),
+            BinaryFormula(Variable("A"), Conjunction, Variable("B")),
             Implication,
-            UnaryFormula(Negation, Variable("C"))
-        )
+            UnaryFormula(Negation, Variable("C")),
+        ),
     ),
     (
         "((~A & ~B) > C)",
@@ -383,35 +284,27 @@ PARAMS_GROUPED_NOT = [
             BinaryFormula(
                 UnaryFormula(Negation, Variable("A")),
                 Conjunction,
-                UnaryFormula(Negation, Variable("B"))
+                UnaryFormula(Negation, Variable("B")),
             ),
             Implication,
-            Variable("C")
-        )
+            Variable("C"),
+        ),
     ),
     (
         "((~A & B) > ~C)",
         BinaryFormula(
-            BinaryFormula(
-                UnaryFormula(Negation, Variable("A")),
-                Conjunction,
-                Variable("B")
-            ),
+            BinaryFormula(UnaryFormula(Negation, Variable("A")), Conjunction, Variable("B")),
             Implication,
-            UnaryFormula(Negation, Variable("C"))
-        )
+            UnaryFormula(Negation, Variable("C")),
+        ),
     ),
     (
         "((A & ~B) > ~C)",
         BinaryFormula(
-            BinaryFormula(
-                Variable("A"),
-                Conjunction,
-                UnaryFormula(Negation, Variable("B"))
-            ),
+            BinaryFormula(Variable("A"), Conjunction, UnaryFormula(Negation, Variable("B"))),
             Implication,
-            UnaryFormula(Negation, Variable("C"))
-        )
+            UnaryFormula(Negation, Variable("C")),
+        ),
     ),
     (
         "((~A & ~B) > ~C)",
@@ -419,73 +312,52 @@ PARAMS_GROUPED_NOT = [
             BinaryFormula(
                 UnaryFormula(Negation, Variable("A")),
                 Conjunction,
-                UnaryFormula(Negation, Variable("B"))
+                UnaryFormula(Negation, Variable("B")),
             ),
             Implication,
-            UnaryFormula(Negation, Variable("C"))
-        )
+            UnaryFormula(Negation, Variable("C")),
+        ),
     ),
-
     # Next
     (
         "(~A & (B > C))",
         BinaryFormula(
             UnaryFormula(Negation, Variable("A")),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, Variable("C")),
+        ),
     ),
     (
         "(A & (~B > C))",
         BinaryFormula(
             Variable("A"),
             Conjunction,
-            BinaryFormula(
-                UnaryFormula(Negation, Variable("B")),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(UnaryFormula(Negation, Variable("B")), Implication, Variable("C")),
+        ),
     ),
     (
         "(A & (B > ~C))",
         BinaryFormula(
             Variable("A"),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, UnaryFormula(Negation, Variable("C"))),
+        ),
     ),
     (
         "(~A & (~B > C))",
         BinaryFormula(
             UnaryFormula(Negation, Variable("A")),
             Conjunction,
-            BinaryFormula(
-                UnaryFormula(Negation, Variable("B")),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(UnaryFormula(Negation, Variable("B")), Implication, Variable("C")),
+        ),
     ),
     (
         "(~A & (B > ~C))",
         BinaryFormula(
             UnaryFormula(Negation, Variable("A")),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, UnaryFormula(Negation, Variable("C"))),
+        ),
     ),
     (
         "(A & (~B > ~C))",
@@ -495,9 +367,9 @@ PARAMS_GROUPED_NOT = [
             BinaryFormula(
                 UnaryFormula(Negation, Variable("B")),
                 Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+                UnaryFormula(Negation, Variable("C")),
+            ),
+        ),
     ),
     (
         "(~A & (~B > ~C))",
@@ -507,59 +379,42 @@ PARAMS_GROUPED_NOT = [
             BinaryFormula(
                 UnaryFormula(Negation, Variable("B")),
                 Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+                UnaryFormula(Negation, Variable("C")),
+            ),
+        ),
     ),
-
     # Next
     (
         "(~A & B > C)",
         BinaryFormula(
             UnaryFormula(Negation, Variable("A")),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, Variable("C")),
+        ),
     ),
     (
         "(A & ~B > C)",
         BinaryFormula(
             Variable("A"),
             Conjunction,
-            BinaryFormula(
-                UnaryFormula(Negation, Variable("B")),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(UnaryFormula(Negation, Variable("B")), Implication, Variable("C")),
+        ),
     ),
     (
         "(A & B > ~C)",
         BinaryFormula(
             Variable("A"),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, UnaryFormula(Negation, Variable("C"))),
+        ),
     ),
     (
         "(~A & ~B > C)",
         BinaryFormula(
             UnaryFormula(Negation, Variable("A")),
             Conjunction,
-            BinaryFormula(
-                UnaryFormula(Negation, Variable("B")),
-                Implication,
-                Variable("C")
-            )
-        )
+            BinaryFormula(UnaryFormula(Negation, Variable("B")), Implication, Variable("C")),
+        ),
     ),
     (
         "(A & ~B > ~C)",
@@ -569,21 +424,17 @@ PARAMS_GROUPED_NOT = [
             BinaryFormula(
                 UnaryFormula(Negation, Variable("B")),
                 Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+                UnaryFormula(Negation, Variable("C")),
+            ),
+        ),
     ),
     (
         "(~A & B > ~C)",
         BinaryFormula(
             UnaryFormula(Negation, Variable("A")),
             Conjunction,
-            BinaryFormula(
-                Variable("B"),
-                Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+            BinaryFormula(Variable("B"), Implication, UnaryFormula(Negation, Variable("C"))),
+        ),
     ),
     (
         "(~A & ~B > ~C)",
@@ -593,9 +444,9 @@ PARAMS_GROUPED_NOT = [
             BinaryFormula(
                 UnaryFormula(Negation, Variable("B")),
                 Implication,
-                UnaryFormula(Negation, Variable("C"))
-            )
-        )
+                UnaryFormula(Negation, Variable("C")),
+            ),
+        ),
     ),
 ]
 

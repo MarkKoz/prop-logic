@@ -100,16 +100,14 @@ class Parser:
         """Operator-precedence parser based on pseudocode from Wikipedia."""
         token = self.token
         while (
-            (connective := BinaryConnective.from_token(token))
-            and connective.precedence >= min_precedence
-        ):
+            connective := BinaryConnective.from_token(token)
+        ) and connective.precedence >= min_precedence:
             self.next()  # Consume binary connective token.
             right = self.parse_term()
             token = self.token
             while (
-                (next_connective := BinaryConnective.from_token(token))
-                and next_connective.precedence > connective.precedence
-            ):
+                next_connective := BinaryConnective.from_token(token)
+            ) and next_connective.precedence > connective.precedence:
                 self.next()  # Consume binary connective token.
                 right = self.parse_binary(right, next_connective.precedence)
                 token = self.token
