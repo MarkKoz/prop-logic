@@ -1,5 +1,6 @@
 [flake8]
 docstring-convention = all
+exclude = __pycache__,__pypackages__,venv,.venv
 max-line-length = 100
 ignore =
     E203, W503, N804,
@@ -14,4 +15,8 @@ ignore =
     # Type Annotations
     ANN002,ANN003,ANN101,ANN102,ANN204,ANN206
 per-file-ignores = **/__init__.py:F401,F403,F405,tests/*:D,ANN
-exclude = __pycache__,__pypackages__,venv,.venv
+pytest-fixture-no-parentheses = true
+pytest-mark-no-parentheses = true
+pytest-parametrize-names-type = list
+pytest-parametrize-values-row-type = tuple
+pytest-parametrize-values-type = list

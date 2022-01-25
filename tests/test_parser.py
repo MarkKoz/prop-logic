@@ -457,16 +457,16 @@ def get_ast(function):
     return parser.parse()
 
 
-@pytest.mark.parametrize("function,expected", PARAMS_GROUPED)
+@pytest.mark.parametrize(["function", "expected"], PARAMS_GROUPED)
 def test_parser_grouped(function, expected):
     assert get_ast(function) == expected
 
 
-@pytest.mark.parametrize("function,expected", PARAMS_UNGROUPED_NOT)
+@pytest.mark.parametrize(["function", "expected"], PARAMS_UNGROUPED_NOT)
 def test_parser_ungrouped_not(function, expected):
     assert get_ast(function) == expected
 
 
-@pytest.mark.parametrize("function,expected", PARAMS_GROUPED_NOT)
+@pytest.mark.parametrize(["function", "expected"], PARAMS_GROUPED_NOT)
 def test_parser_grouped_not(function, expected):
     assert get_ast(function) == expected
